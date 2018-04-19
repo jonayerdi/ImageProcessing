@@ -1,9 +1,24 @@
 clear all; close all;
 
-image = imread('pattern1.bmp');
-image = rgb2gray(image);
-[pattern, tile_color] = decodepattern(image, 7, 7, 0.4);
-imshow(pattern, 'InitialMagnification', 'fit')
+image_list = ['pattern1.bmp'; 'pattern2.bmp'; 'pattern3.bmp'; 'pattern4.bmp'];
+
+for i = 1:length(image_list(:,1))
+    image = imread(image_list(i,:));
+    try
+        image_gray = rgb2gray(image);
+    catch
+        image_gray = image;
+    end
+    pattern = decodepattern(image_gray, 7, 7, 0.4);
+    
+    figure;
+    subplot(1,2,1);
+    imshow(image, 'InitialMagnification', 'fit');
+    title('Image','FontSize',12);
+    subplot(1,2,2);
+    imshow(pattern, 'InitialMagnification', 'fit');
+    title('Decoded','FontSize',12);
+end
 
 function [pattern, tile_color] = decodepattern(image, pattern_height, pattern_width, threshold)
     pattern = zeros(pattern_height, pattern_width);
