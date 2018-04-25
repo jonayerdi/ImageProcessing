@@ -1,10 +1,15 @@
 clear all; close all;
 
-colorThreshold = 80;
-numPeaks = 4; threshold = 0.5; fillGap = 5; minLength = 300;
+%Parameters for patternsTilted.bmp
+%colorThreshold = 80;
+%numPeaks = 4; threshold = 0.5; fillGap = 1; minLength = 300;
+
+%Parameters for pattern1Photo.bmp
+colorThreshold = 150;
+numPeaks = 15; threshold = 0.5; fillGap = 10; minLength = 600;
 minRadius = 25; maxRadius = 35;
 
-I = imread('patternsTilted.bmp');
+I = imread('pattern1Photo.bmp');
 try
     grayI = rgb2gray(I);
 catch
@@ -39,7 +44,7 @@ x = T(P(:,2)); y = R(P(:,1));
 plot(x,y,'s','color','white');
 lines = houghlines(BW1,T,R,P,'FillGap', fillGap,'MinLength', minLength);
 
-imshow(grayI, 'InitialMagnification', 'fit'), hold on;
+imshow(I, 'InitialMagnification', 'fit'), hold on;
 
 viscircles(centers, radii, 'color', 'red');
 
